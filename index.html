@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUMAQ - Joyas con Historia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Merriweather:wght@300;400;700&family=Kalam:wght@300;400;700&family=Crimson+Text:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Variables personalizadas para el tema SUMAQ */
+        :root {
+            /* Light theme colors */
+            --primary-color: #D4AF37;
+            --primary-hover: #C9A227;
+            --secondary-color: #000000;
+            --accent-color: #8B7355;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --bg-tertiary: #F3F4F6;
+            --text-primary: #111827;
+            --text-secondary: #4B5563;
+            --text-tertiary: #6B7280;
+            --border-color: #E5E7EB;
+            --card-bg: #FFFFFF;
+            --modal-bg: #FFFFFF;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --gradient-start: #000000;
+            --gradient-end: #D4AF37;
+        }
+
+        [data-theme="dark"] {
+            /* Dark theme colors */
+            --primary-color: #FCD34D;
+            --primary-hover: #FDE68A;
+            --secondary-color: #000000;
+            --accent-color: #92400E;
+            --bg-primary: #0F0F0F;
+            --bg-secondary: #1A1A1A;
+            --bg-tertiary: #262626;
+            --text-primary: #F9FAFB;
+            --text-secondary: #D1D5DB;
+            --text-tertiary: #9CA3AF;
+            --border-color: #374151;
+            --card-bg: #1A1A1A;
+            --modal-bg: #1F2937;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --gradient-start: #1A1A1A;
+            --gradient-end: #FCD34D;
+        }
+
+        /* Educational Fonts */
+        .font-heading {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .font-body {
+            font-family: 'Merriweather', Georgia, serif;
+        }
+
+        .font-accent {
+            font-family: 'Kalam', cursive;
+        }
+
+        .font-serif {
+            font-family: 'Crimson Text', Georgia, serif;
+        }
+
+        /* Enhanced Loading Screen Styles */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #1a1a1a 0%, #000000 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .loading-screen.fade-out {
+            animation: fadeOut 1s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Animated background pattern */
+        .loading-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image:
+                radial-gradient(circle at 20% 30%, #D4AF37 0%, transparent 2%),
+                radial-gradient(circle at 60% 70%, #D4AF37 0%, transparent 2%),
+                radial-gradient(circle at 80% 20%, #D4AF37 0%, transparent 2%),
+                radial-gradient(circle at 30% 80%, #D4AF37 0%, transparent 2%);
+            background-size: 100px 100px;
+            animation: patternMove 20s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(100px, 100px);
+            }
+        }
+
+        /* Enhanced SUMAQ Logo Loading */
+        .sumaq-loader {
+            position: relative;
+            width: 400px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .sumaq-text {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 5rem;
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: 10px;
+            background: linear-gradient(45deg, #D4AF37, #FCD34D, #D4AF37, #B8860B);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite, float 4s ease-in-out infinite, textGlow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+            position: relative;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) scale(1);
+            }
+
+            50% {
+                transform: translateY(-20px) scale(1.05);
+            }
+        }
+
+        @keyframes textGlow {
+            0% {
+                filter: brightness(1) drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
+            }
+
+            100% {
+                filter: brightness(1.2) drop-shadow(0 0 30px rgba(212, 175, 55, 0.8));
+            }
+        }
+
+        /* Enhanced ornamental frame */
+        .ornamental-frame {
+            position: absolute;
+            width: 450px;
+            height: 300px;
+            border: 3px solid rgba(212, 175, 55, 0.4);
+            border-radius: 12px;
+            pointer-events: none;
+            animation: frameGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes frameGlow {
+            0% {
+                border-color: rgba(212, 175, 55, 0.4);
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            }
+
+            100% {
+                border-color: rgba(212, 175, 55, 0.8);
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+            }
+        }
+
+        .ornamental-frame::before,
+        .ornamental-frame::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #D4AF37;
+            animation: cornerPulse 2s ease-in-out infinite;
+        }
+
+        .ornamental-frame::before {
+            top: -3px;
+            left: -3px;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 12px 0 0 0;
+        }
+
+        .ornamental-frame::after {
+            bottom: -3px;
+            right: -3px;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 12px 0;
+        }
+
+        @keyframes cornerPulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Enhanced gold particles */
+        .gold-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .gold-particle {
+            position: absolute;
+            background: radial-gradient(circle, #D4AF37, #FCD34D, transparent);
+            border-radius: 50%;
+            animation: particleFloat 8s ease-in-out infinite;
+        }
+
+        .gold-particle:nth-child(1) {
+            width: 6px;
+            height: 6px;
+            top: 15%;
+            left: 8%;
+            animation-delay: 0s;
+            animation-duration: 6s;
+        }
+
+        .gold-particle:nth-child(2) {
+            width: 8px;
+            height: 8px;
+            top: 25%;
+            right: 12%;
+            animation-delay: 1s;
+            animation-duration: 7s;
+        }
+
+        .gold-particle:nth-child(3) {
+            width: 5px;
+            height: 5px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 2s;
+            animation-duration: 8s;
+        }
+
+        .gold-particle:nth-child(4) {
+            width: 7px;
+            height: 7px;
+            bottom: 10%;
+            right: 8%;
+            animation-delay: 3s;
+            animation-duration: 6s;
+        }
+
+        .gold-particle:nth-child(5) {
+            width: 4px;
+            height: 4px;
+            top: 45%;
+            left: 5%;
+            animation-delay: 4s;
+            animation-duration: 7s;
+        }
+
+        .gold-particle:nth-child(6) {
+            width: 6px;
+            height: 6px;
+            top: 35%;
+            right: 3%;
+            animation-delay: 5s;
+            animation-duration: 8s;
+        }
+
+        .gold-particle:nth-child(7) {
+            width: 5px;
+            height: 5px;
+            top: 60%;
+            left: 25%;
+            animation-delay: 2.5s;
+            animation-duration: 6.5s;
+        }
+
+        .gold-particle:nth-child(8) {
+            width: 7px;
+            height: 7px;
+            bottom: 30%;
+            right: 20%;
+            animation-delay: 3.5s;
+            animation-duration: 7.5s;
+        }
+
+        @keyframes particleFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 0.2;
+            }
+
+            25% {
+                transform: translateY(-30px) scale(1.3) rotate(90deg);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: translateY(-50px) scale(1.5) rotate(180deg);
+                opacity: 1;
+            }
+
+            75% {
+                transform: translateY(-30px) scale(1.3) rotate(270deg);
+                opacity: 0.8;
+            }
+        }
+
+        /* Progress bar */
+        .progress-container {
+            position: absolute;
+            bottom: 80px;
+            width: 300px;
+            height: 4px;
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #D4AF37, #FCD34D, #D4AF37);
+            background-size: 200% 100%;
+            animation: progressFill 4s ease-out forwards, shimmer 2s linear infinite;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        @keyframes progressFill {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        /* Enhanced loading text */
+        .loading-text {
+            position: absolute;
+            bottom: 40px;
+            font-family: 'Kalam', cursive;
+            font-size: 22px;
+            color: #D4AF37;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: pulse 2s ease-in-out infinite, textFade 4s ease-in-out;
+        }
+
+        @keyframes textFade {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            80% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        .loading-dots {
+            display: inline-block;
+            width: 60px;
+            text-align: left;
+        }
+
+        .loading-dots::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+
+            0%,
+            20% {
+                content: '';
+            }
+
+            40% {
+                content: '.';
+            }
+
+            60% {
+                content: '..';
+            }
+
+            80%,
+            100% {
+                content: '...';
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        /* Sparkle effects */
+        .sparkle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 3s linear infinite;
+        }
+
+        .sparkle:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .sparkle:nth-child(2) {
+            top: 30%;
+            right: 30%;
+            animation-delay: 1s;
+        }
+
+        .sparkle:nth-child(3) {
+            bottom: 20%;
+            left: 40%;
+            animation-delay: 2s;
+        }
+
+        .sparkle:nth-child(4) {
+            top: 60%;
+            right: 10%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes sparkle {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Base styles */
+        * {
+            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Merriweather', Georgia, serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Theme transition overlay */
+        .theme-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .theme-overlay.active {
+            opacity: 1;
+        }
+
+        .theme-overlay.light {
+            background: radial-gradient(circle, var(--primary-color) 0%, var(--bg-primary) 100%);
+        }
+
+        .theme-overlay.dark {
+            background: radial-gradient(circle, var(--primary-color) 0%, var(--bg-primary) 100%);
+        }
+
+        /* Enhanced animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes gradient-shift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes themeTransition {
+            0% {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: rotate(180deg) scale(0.8);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: rotate(360deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes particleAnimation {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(100px, -100px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Component styles */
+        .gradient-bg {
+            background: linear-gradient(-45deg, var(--gradient-start), #1a1a1a, #2a2a2a, var(--gradient-end));
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .card-hover {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sumaq-logo {
+            font-family: 'Playfair Display', Georgia, serif;
+            letter-spacing: 3px;
+            font-weight: 900;
+            font-style: italic;
+        }
+
+        .luxury-border {
+            border: 1px solid var(--border-color);
+        }
+
+        .gold-accent {
+            color: var(--primary-color);
+        }
+
+        .gold-bg {
+            background-color: var(--primary-color);
+        }
+
+        .black-bg {
+            background-color: var(--secondary-color);
+        }
+
+        /* Typography improvements */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        p {
+            font-family: 'Merriweather', Georgia, serif;
+            font-weight: 400;
+        }
+
+        .accent-text {
+            font-family: 'Kalam', cursive;
+            font-weight: 400;
+        }
+
+        .serif-text {
+            font-family: 'Crimson Text', Georgia, serif;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: var(--bg-primary);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header.scrolled {
+            box-shadow: 0 4px 20px var(--shadow-color);
+        }
+
+        /* Navigation styles */
+        .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-family: 'Crimson Text', Georgia, serif;
+            font-size: 18px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Search input styles */
+        .search-input {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            font-family: 'Merriweather', Georgia, serif;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bg-secondary);
+            border-color: var(--primary-color);
+        }
+
+        .theme-toggle .icon {
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover .icon {
+            transform: rotate(180deg);
+        }
+
+        /* Product card styles */
+        .product-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--bg-tertiary);
+        }
+
+        .product-image {
+            transition: transform 0.5s ease;
+        }
+
+        .product-image-container:hover .product-image {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        /* Button styles */
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--bg-primary);
+            font-weight: 600;
+            font-family: 'Crimson Text', Georgia, serif;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            font-weight: 600;
+            font-family: 'Crimson Text', Georgia, serif;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Modal styles */
+        .modal {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background-color: var(--modal-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px var(--shadow-color);
+        }
+
+        /* Filter tag styles */
+        .filter-tag {
+            background-color: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            font-family: 'Crimson Text', Georgia, serif;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tag:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-color);
+        }
+
+        .filter-tag.active {
+            background-color: var(--primary-color);
+            color: var(--bg-primary);
+            border-color: var(--primary-color);
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-link {
+            color: var(--text-tertiary);
+            font-family: 'Crimson Text', Georgia, serif;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Notification styles */
+        .notification {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px var(--shadow-color);
+            font-family: 'Merriweather', Georgia, serif;
+        }
+
+        .notification.success {
+            border-left: 4px solid #10B981;
+        }
+
+        .notification.error {
+            border-left: 4px solid #EF4444;
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            background-color: var(--modal-bg);
+            border-right: 1px solid var(--border-color);
+            box-shadow: 10px 0 30px var(--shadow-color);
+        }
+
+        .mobile-menu-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Particle effect */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: particleAnimation 1s ease-out forwards;
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 1024px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem !important;
+            }
+
+            .hero-subtitle {
+                font-size: 1.125rem !important;
+            }
+
+            .modal-content {
+                margin: 20px;
+                max-width: calc(100% - 40px);
+                max-height: calc(100vh - 40px);
+                overflow-y: auto;
+            }
+
+            .notification {
+                right: 10px;
+                left: 10px;
+                width: auto;
+            }
+
+            .sumaq-text {
+                font-size: 3.5rem;
+                letter-spacing: 6px;
+            }
+
+            .sumaq-loader {
+                width: 320px;
+                height: 200px;
+            }
+
+            .ornamental-frame {
+                width: 360px;
+                height: 240px;
+            }
+
+            .progress-container {
+                width: 250px;
+            }
+
+            .loading-text {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-image {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .section-title {
+                font-size: 2rem !important;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem;
+            }
+
+            .sumaq-text {
+                font-size: 2.8rem;
+                letter-spacing: 4px;
+            }
+
+            .sumaq-loader {
+                width: 280px;
+                height: 180px;
+            }
+
+            .ornamental-frame {
+                width: 320px;
+                height: 200px;
+            }
+
+            .progress-container {
+                width: 200px;
+            }
+
+            .loading-text {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sumaq-text {
+                font-size: 2.2rem;
+                letter-spacing: 2px;
+            }
+
+            .sumaq-loader {
+                width: 240px;
+                height: 150px;
+            }
+
+            .ornamental-frame {
+                width: 280px;
+                height: 170px;
+            }
+
+            .progress-container {
+                width: 180px;
+            }
+
+            .loading-text {
+                font-size: 14px;
+            }
+        }
+
+        /* Touch-friendly adjustments */
+        @media (hover: none) {
+            .card-hover:hover {
+                transform: none;
+            }
+
+            .product-image-container:hover .product-image {
+                transform: none;
+            }
+
+            button:active {
+                transform: scale(0.95);
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, var(--primary-hover), var(--accent-color));
+        }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-secondary) 50%, var(--bg-tertiary) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="light">
+    <!-- Enhanced Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-pattern"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+
+        <div class="sumaq-loader">
+            <div class="ornamental-frame"></div>
+            <div class="sumaq-text">SUMAQ</div>
+            <div class="gold-particles">
+                <div class="gold-particle"></div>
+                <div class="gold-particle"></div>
+                <div class="gold-particle"></div>
+                <div class="gold-particle"></div>
+                <div class="gold-particle"></div>
+                <div class="gold-particle"></div>
+                <div class="gold-particle"></div>
+                <div class="gold-particle"></div>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+
+        <div class="loading-text">
+            Creando experiencia única
+            <span class="loading-dots"></span>
+        </div>
+    </div>
+
+    <!-- Theme Transition Overlay -->
+    <div id="themeOverlay" class="theme-overlay"></div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
+
+    <!-- Header -->
+    <header id="header" class="header sticky top-0 z-40 transition-all duration-300">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div class="flex justify-between items-center w-full md:w-auto">
+                    <div class="text-2xl md:text-3xl font-bold text-gradient sumaq-logo">SUMAQ</div>
+                    <button id="mobileMenuToggle"
+                        class="md:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6 mt-4 md:mt-0">
+                    <a href="#home" class="nav-link">Inicio</a>
+                    <a href="#about" class="nav-link">Nosotros</a>
+                    <a href="#products" class="nav-link">Colecciones</a>
+                </div>
+
+                <!-- Header Actions -->
+                <div
+                    class="flex items-center space-x-2 md:space-x-4 w-full md:w-auto justify-between md:justify-end mt-4 md:mt-0">
+                    <div class="search-container flex-1 md:flex-initial">
+                        <input type="text" id="searchInput" placeholder="Buscar joyas..."
+                            class="search-input px-3 md:px-4 py-2 rounded-full focus:outline-none transition-all duration-300 w-full md:w-auto">
+                    </div>
+                    <button id="themeToggle"
+                        class="theme-toggle relative p-2 rounded-full transition-all duration-300 group">
+                        <i class="fas fa-sun icon text-lg md:text-xl" id="sunIcon"></i>
+                        <i class="fas fa-moon icon text-lg md:text-xl hidden" id="moonIcon"></i>
+                        <span
+                            class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                            Cambiar tema
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu fixed top-0 left-0 w-64 h-full z-50 md:hidden">
+            <div class="p-4">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="text-2xl font-bold text-gradient sumaq-logo">SUMAQ</div>
+                    <button id="closeMobileMenu"
+                        class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <nav class="flex flex-col space-y-4">
+                    <a href="#home" class="mobile-nav-link nav-link py-2">Inicio</a>
+                    <a href="#about" class="mobile-nav-link nav-link py-2">Nosotros</a>
+                    <a href="#products" class="mobile-nav-link nav-link py-2">Colecciones</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white py-12 md:py-20">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+                <div class="w-full lg:w-1/2 text-center lg:text-left">
+                    <h1
+                        class="hero-title text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 float-animation font-heading">
+                        SUMAQ</h1>
+                    <p class="hero-subtitle text-lg md:text-xl mb-6 md:mb-8 serif-text">Cada Joya cuenta una historia,
+                        este es su cofre.
+                        Empresa enfocada a la confección de joyeros, dirigido al público en general 
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' });" class="btn-primary px-6 py-3 rounded-full w-full sm:w-auto">
+                            Explorar Colecciones
+                        </button>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2 flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <img src="/assets/sumaq.png" alt="SUMAQ Logo"
+                            class="hero-image w-full h-auto rounded-lg transform hover:rotate-3 transition-transform duration-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-12 md:py-20" style="background-color: var(--bg-secondary);">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8 md:mb-12">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4 font-heading">Nuestra Historia</h2>
+                <p class="text-lg md:text-xl serif-text" style="color: var(--text-secondary);">Sumaq nació de la herencia de nuestro abuelo, un artesano que nos enseñó que los verdaderos tesoros son los recuerdos. Inspirados en sus cajas de madera, decidimos combinar esa tradición familiar con un toque moderno de luz. Hoy, cada joyero que creamos no solo protege tus piezas valiosas, sino que las ilumina, convirtiendo cada recuerdo en una obra de arte que brilla con luz propia.a</p>
+            </div>
+
+            <!-- Mission and Vision -->
+            <div class="grid md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
+                <div class="p-6 md:p-8 rounded-xl text-white transform hover:scale-105 transition-all duration-300"
+                    style="background: linear-gradient(135deg, var(--primary-color), var(--accent-color));">
+                    <i class="fas fa-gem text-3xl md:text-4xl mb-4"></i>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 font-heading">Nuestra Misión</h3>
+                    <p class="leading-relaxed text-sm md:text-base serif-text">Crear joyas excepcionales que cuenten historias únicas, combinando artesanía tradicional con diseño contemporáneo, para que cada pieza sea un tesoro atemporal que trasciende generaciones</p>
+                </div>
+                <div class="p-6 md:p-8 rounded-xl text-white transform hover:scale-105 transition-all duration-300"
+                    style="background: linear-gradient(135deg, #374151, #111827);">
+                    <i class="fas fa-eye text-3xl md:text-4xl mb-4"></i>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 font-heading">Nuestra Visión</h3>
+                    <p class="leading-relaxed text-sm md:text-base serif-text">Ser reconocidos como la joyería de referencia en diseño y calidad, donde cada pieza es una obra de arte que celebra la belleza y la elegancia atemporal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-12 md:py-16" style="background-color: var(--bg-secondary);">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-2xl md:text-3xl font-bold text-center mb-8 md:mb-10 font-heading">Nuestras
+                Colecciones</h2>
+
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap justify-center mb-8 md:mb-10 gap-2">
+                <button class="filter-tag px-3 py-2 md:px-4 md:py-2 rounded-full active" data-filter="all">
+                    Todas
+                </button>
+                <button class="filter-tag px-3 py-2 md:px-4 md:py-2 rounded-full" data-filter="Personalizado">
+                    Personalizado
+                </button>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="productsGrid"
+                class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+<footer class="footer py-8 md:py-10">
+    <div class="container mx-auto px-4">
+        <div class="footer-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-gradient sumaq-logo font-heading">SUMAQ</h3>
+                <p class="text-sm serif-text" style="color: var(--text-tertiary);">Cada Joya cuenta una historia,
+                    este es su cofre</p>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4 font-heading">Enlaces Rápidos</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#home" class="footer-link">Inicio</a></li>
+                    <li><a href="#about" class="footer-link">Nosotros</a></li>
+                    <li><a href="#products" class="footer-link">Colecciones</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4 font-heading">Categorías</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="footer-link">Personalizado</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4 font-heading">Contacto</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="mailto:sumaqtreasure@gmail.com" class="footer-link">📧 sumaqtreasure@gmail.com</a></li>
+                    <li><a href="tel:+51997077274" class="footer-link">📞 997 077 274</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4 font-heading">Síguenos</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="footer-link">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t mt-6 md:mt-8 pt-6 md:pt-8 text-center text-sm"
+            style="border-color: var(--border-color); color: var(--text-tertiary);">
+            <p class="serif-text">&copy; 2025 SUMAQ Joyería. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal fixed inset-0 z-[1000] hidden">
+        <div class="modal-content max-w-4xl mx-auto mt-10 md:mt-20 p-4 md:p-8 relative">
+            <span class="absolute top-4 right-4 text-3xl cursor-pointer" style="color: var(--text-tertiary);"
+                onclick="closeModal()">&times;</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div>
+                    <img id="modalImage" src="" alt="" class="w-full rounded-lg">
+                </div>
+                <div>
+                    <h2 id="modalTitle" class="text-xl md:text-2xl font-bold mb-4 font-heading"></h2>
+                    <p id="modalDescription" class="mb-4 text-sm md:text-base serif-text"
+                        style="color: var(--text-secondary);"></p>
+                    <div class="flex items-center mb-4">
+                        <span class="text-2xl md:text-3xl font-bold gold-accent" id="modalPrice"></span>
+                        <span class="ml-4" style="color: var(--text-tertiary); text-decoration: line-through;"
+                            id="modalOldPrice"></span>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="font-semibold mb-2 font-heading">Características:</h3>
+                        <ul id="modalFeatures" class="list-disc list-inside text-sm md:text-base serif-text"
+                            style="color: var(--text-secondary);">
+                        </ul>
+                    </div>
+                    <!-- <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="addToCartFromModal()" class="btn-primary flex-1 py-3 rounded-lg">
+                            <i class="fas fa-shopping-cart mr-2"></i>Agregar al Carrito
+                        </button>
+                        <button class="btn-secondary px-6 py-3 rounded-lg">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification fixed top-20 right-4 md:right-20 z-[2000] hidden p-4 rounded-lg">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle mr-3"></i>
+            <span id="notificationText" class="text-sm md:text-base serif-text">Producto agregado al carrito</span>
+        </div>
+    </div>
+
+    <script>
+        // Product data
+        const products = [
+            {
+                id: 1,
+                name: "Luz Amarilla",
+                category: "Joyeria",
+                price: 53.00,
+                oldPrice: 53.00,
+                image: "./assets/productos/luzamarilla.png",
+                description: "Joyero de madera con un cajón pequeño. Encima tiene una figura de acrílico transparente en forma de árbol de Navidad, iluminada con una luz led azul que dice Feliz Navidad",
+                features: ["Joyero elaborado en material de trupan", "Medidas 13.43 cm de ancho por 14.99 de alto", "Sensor de movimiento para el cambio de luces", "Iluminacion led en 4 colores, rojo, verde, amarillo y azul", "Gravado de texto en laser", "Figura de arbol en acrilico transparente"]
+            },
+            {
+                id: 2,
+                name: "Luz Verde",
+                category: "Joyeria",
+                price: 53.00,
+                oldPrice: 53.00,
+                image: "./assets/productos/luzverde.png",
+                description: "Joyero de madera  con un cajón pequeño. Encima tiene una figura de acrílico transparente en forma de árbol de Navidad, iluminada con una luz led azul que dice Feliz Navidad",
+                features: ["Joyero elaborado en material de trupan", "Medidas 13.43 cm de ancho por 14.99 de alto", "Sensor de movimiento para el cambio de luces", "Iluminacion led en 4 colores, rojo, verde, amarillo y azul", "Gravado de texto en laser", "Figura de arbol en acrilico transparente"]
+            },
+            {
+                id: 3,
+                name: "Luz Azul",
+                category: "Joyeria",
+                price: 53.00,
+                oldPrice: 53.00,
+                image: "./assets/productos/luzazul.png",
+                description: "Joyero de madera con un cajón pequeño. Encima tiene una figura de acrílico transparente en forma de árbol de Navidad, iluminada con una luz led azul que dice Feliz Navidad",
+                features: ["Joyero elaborado en material de trupan", "Medidas 13.43 cm de ancho por 14.99 de alto", "Sensor de movimiento para el cambio de luces", "Iluminacion led en 4 colores, rojo, verde, amarillo y azul", "Gravado de texto en laser", "Figura de arbol en acrilico transparente"]
+            },
+            {
+                id: 4,
+                name: "Luz Roja",
+                category: "Joyeria",
+                price: 53.00,
+                oldPrice: 53.00,
+                image: "./assets/productos/luzroja.png",
+                description: "Joyero de madera con un cajón pequeño. Encima tiene una figura de acrílico transparente en forma de árbol de Navidad, iluminada con una luz led azul que dice Feliz Navidad",
+                features: ["Joyero elaborado en material de trupan", "Medidas 13.43 cm de ancho por 14.99 de alto", "Sensor de movimiento para el cambio de luces", "Iluminacion led en 4 colores, rojo, verde, amarillo y azul", "Gravado de texto en laser", "Figura de arbol en acrilico transparente"]
+            },
+            {
+                id: 5,
+                name: "Personalizado",
+                category: "Personalizado",
+                price: "Precio a coordinar",
+                oldPrice: 0.00,
+                image: "./assets/productos/personalizado.jpeg",
+                description: "Descubre nuestros exclusivos joyeros de madera, la combinación perfecta de artesanía y tecnología. Cada pieza cuenta con una figura de acrílico grabada a láser que se ilumina con una vibrante luz LED, creando un efecto visual único y moderno.\n Además de nuestros diseños listos para toda ocasión, nos especializamos en trabajos 100% personalizados. Podemos transformar tu idea en un diseño luminoso: desde grabar un nombre o una fecha especial, hasta plasmar el logo de tu emprendimiento o la figura que más te guste. Son el regalo ideal para sorprender a alguien especial o para darle un toque único a tu espacio.",
+               features: ["Personalizados"]
+            },
+            
+        ];
+
+        // Cart data
+        let cart = [];
+        let currentProduct = null;
+        let currentFilter = 'all';
+        let isThemeTransitioning = false;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function () {
+            // Hide loading screen after exactly 4 seconds
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loadingScreen');
+                loadingScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 1000);
+            }, 4000);
+
+            initializeTheme();
+            renderProducts(products);
+            setupEventListeners();
+            setupScrollEffects();
+        });
+
+        // Theme management
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = savedTheme === 'system' ? (prefersDark ? 'dark' : 'light') : savedTheme;
+
+            setTheme(theme);
+        }
+
+        function setTheme(theme) {
+            const body = document.body;
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+            const overlay = document.getElementById('themeOverlay');
+
+            body.setAttribute('data-theme', theme);
+
+            if (theme === 'dark') {
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+                overlay.classList.add('dark');
+                overlay.classList.remove('light');
+            } else {
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+                overlay.classList.add('light');
+                overlay.classList.remove('dark');
+            }
+
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            if (isThemeTransitioning) return;
+
+            isThemeTransitioning = true;
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            const overlay = document.getElementById('themeOverlay');
+
+            // Create particles
+            createParticles();
+
+            // Start transition
+            overlay.classList.add('active');
+
+            setTimeout(() => {
+                setTheme(newTheme);
+
+                setTimeout(() => {
+                    overlay.classList.remove('active');
+                    isThemeTransitioning = false;
+                }, 500);
+            }, 300);
+        }
+
+        function createParticles() {
+            const colors = ['#D4AF37', '#FCD34D', '#8B7355', '#F59E0B'];
+            const particleCount = 15;
+
+            for (let i = 0; i < particleCount; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.left = Math.random() * window.innerWidth + 'px';
+                    particle.style.top = Math.random() * window.innerHeight + 'px';
+                    document.body.appendChild(particle);
+
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 1000);
+                }, i * 50);
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Theme toggle
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+            // Search
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+
+            // Filter tags
+            document.querySelectorAll('.filter-tag').forEach(tag => {
+                tag.addEventListener('click', handleFilter);
+            });
+
+            // Mobile menu
+            document.getElementById('mobileMenuToggle').addEventListener('click', openMobileMenu);
+            document.getElementById('closeMobileMenu').addEventListener('click', closeMobileMenu);
+            document.getElementById('mobileMenuOverlay').addEventListener('click', closeMobileMenu);
+
+            // Mobile navigation links
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function (event) {
+                const modal = document.getElementById('productModal');
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', handleResize);
+        }
+
+        // Scroll effects
+        function setupScrollEffects() {
+            const header = document.getElementById('header');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // Mobile menu functions
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').style.transform = 'translateX(0)';
+            document.getElementById('mobileMenuOverlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').style.transform = 'translateX(-100%)';
+            document.getElementById('mobileMenuOverlay').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Handle window resize
+        function handleResize() {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        }
+
+        // Render products
+        function renderProducts(productsToRender) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            productsToRender.forEach((product, index) => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card card-hover';
+                productCard.style.animationDelay = `${index * 0.1}s`;
+                productCard.innerHTML = `
+                    <div class="product-image-container h-48">
+                        <img src="${product.image}" alt="${product.name}" class="product-image w-full h-full object-cover">
+                        ${product.oldPrice ? `<span class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">-${Math.round((1 - product.price / product.oldPrice) * 100)}%</span>` : ''}
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-base md:text-lg mb-2 font-heading">${product.name}</h3>
+                        <p class="text-sm mb-3 line-clamp-2 serif-text" style="color: var(--text-secondary);">${product.description}</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-lg md:text-xl font-bold gold-accent">S/. ${product.price}</span>
+                                ${product.oldPrice ? `<span class="ml-2 text-sm" style="color: var(--text-tertiary); text-decoration: line-through;">S/. ${product.oldPrice}</span>` : ''}
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <span class="ml-1 text-sm serif-text" style="color: var(--text-secondary);">4.8</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="openProductModal(${product.id})" class="btn-primary flex-1 py-2 rounded-lg text-sm">
+                                Ver Detalles
+                            </button>
+                            <button onclick="quickAddToCart(${product.id})" class="btn-secondary px-3 py-2 rounded-lg">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(productCard);
+            });
+        }
+
+        // Open product modal
+        function openProductModal(productId) {
+            currentProduct = products.find(p => p.id === productId);
+            if (currentProduct) {
+                document.getElementById('modalImage').src = currentProduct.image;
+                document.getElementById('modalTitle').textContent = currentProduct.name;
+                document.getElementById('modalDescription').textContent = currentProduct.description;
+                document.getElementById('modalPrice').textContent = `S/. ${currentProduct.price}`;
+                document.getElementById('modalOldPrice').textContent = currentProduct.oldPrice ? `S/. ${currentProduct.oldPrice}` : '';
+
+                const featuresList = document.getElementById('modalFeatures');
+                featuresList.innerHTML = '';
+                currentProduct.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.textContent = feature;
+                    featuresList.appendChild(li);
+                });
+
+                document.getElementById('productModal').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Add to cart from modal
+        function addToCartFromModal() {
+            if (currentProduct) {
+                addToCart(currentProduct);
+                closeModal();
+            }
+        }
+
+        // Quick add to cart
+        function quickAddToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                addToCart(product);
+            }
+        }
+
+        // Add to cart
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.id === product.id);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+
+            showNotification(`${product.name} agregado al carrito`, 'success');
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+
+            notification.className = `notification ${type}`;
+            notificationText.textContent = message;
+            notification.classList.remove('hidden');
+
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Handle search
+        function handleSearch(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredProducts = products.filter(product =>
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm)
+            );
+            renderProducts(filteredProducts);
+        }
+
+        // Handle filter
+        function handleFilter(e) {
+            // Update active state
+            document.querySelectorAll('.filter-tag').forEach(tag => {
+                tag.classList.remove('active');
+            });
+            e.target.classList.add('active');
+
+            // Filter products
+            currentFilter = e.target.dataset.filter;
+            let filteredProducts = products;
+
+            if (currentFilter !== 'all') {
+                filteredProducts = products.filter(product => product.category === currentFilter);
+            }
+
+            renderProducts(filteredProducts);
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all product cards
+        setTimeout(() => {
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        }, 100);
+    </script>
+</body>
+
+</html>
